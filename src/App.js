@@ -11,6 +11,8 @@ import Progress from "./Components/Progress.jsx";
 import FinishScreen from "./Components/FinishScreen.jsx";
 import Timer from "./Components/Timer.jsx";
 import Footer from "./Footer.jsx";
+import useProvider from "./Components/hook/useProvider.jsx";
+import { Context } from "./context.jsx";
 // import { map } from "leaflet";
 
 const initialState = {
@@ -24,13 +26,6 @@ const initialState = {
 
 function reducer(state, action) {
 
-  // if (state.status === "finished") {
-  //   // state.index = 0;
-  //   // state.points = 0;
-  //   state.time = 180;
-  //   state.status = "ready";
-  // }
-
   switch (action.type) {
     case "dataFetched":
       return { ...state, questions: action.data, status: "ready" };
@@ -39,7 +34,14 @@ function reducer(state, action) {
     case "loading":
       return { ...state, status: "loading" };
     case "start":
-      return { ...state, status: "active", points: 0, index: 0, answer: null, time: 180 };
+      return {
+        ...state,
+        status: "active",
+        points: 0,
+        index: 0,
+        answer: null,
+        time: 180,
+      };
     case "answer":
       const question = state.questions.at(state.index);
       return {
@@ -50,8 +52,6 @@ function reducer(state, action) {
             ? question.points + state.points
             : state.points,
       };
-    // case "active":
-    //   return { ...state, status: action.payload };
     case "next":
       return {
         ...state,
@@ -62,12 +62,9 @@ function reducer(state, action) {
       };
     case "finish":
       return { ...state, status: "finished" };
-    case "timer":
-      return { ...state, time: state.time - 1, status: state.time === 0 ? "finished" : "active" };
     default:
       throw new Error(`Invalid action ${action.type}`);
   }
-
 }
 
 export default function App() {
@@ -79,6 +76,10 @@ export default function App() {
     (sum, point) => sum + point.points,
     0
   );
+
+  const c = useProvider();
+
+  console.log(c);
 
   // Fetching Effect
   useEffect(() => {
@@ -97,7 +98,9 @@ export default function App() {
   return (
     <>
       <div className="App">
-        <Header />
+        <Context>
+          <Header />
+        </Context>
 
         <Main>
           {status === "loading" && <Loader />}
@@ -140,8 +143,7 @@ export default function App() {
           )}
         </Main>
         <Footer>
-          
-          {status === "active" && <Timer time={time} dispatch={dispatch} />}
+          {status === "active" && <Timer numberOfQuestions={numberOfQuestions} dispatch={dispatch} />}
         </Footer>
       </div>
     </>

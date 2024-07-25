@@ -1,12 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-function Timer({ time, dispatch }) {
+const SEC_PER_QUESTION = 4;
 
+function Timer({ numberOfQuestions, dispatch }) {
+
+  const [time, setTime] = useState(() => numberOfQuestions * SEC_PER_QUESTION);
   // Timer Effect
   useEffect(() => {
     // if (time === 0) return;
     const timerId = setInterval(() => {
-      dispatch({ type: "timer" });
+      setTime(time => time - 1);
+      if (time === 0) dispatch({ type: "finish" });
     }, 1000);
 
     return () => clearInterval(timerId);

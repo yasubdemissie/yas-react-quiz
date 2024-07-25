@@ -10,7 +10,7 @@ function Progress({ index, point, numberOfQuestions, numberOfPoints, answer }) {
 }
 
 Progress.propTypes = {
-    answer : propTypes.string,
+    answer : propTypes.number,
 }
 
 export default Progress
