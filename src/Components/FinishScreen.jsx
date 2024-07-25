@@ -1,8 +1,11 @@
-function FinishScreen({ point, total, dispatch }) {
+import useProvider from "./hook/useProvider";
+
+function FinishScreen() {
+  const { points, numberOfPoints, dispatch } = useProvider();
   return (
     <>
       <p className="result">
-        You hace scored <b>{point}</b> out Of <b>{total}</b>
+        You hace scored <b>{points}</b> out Of <b>{numberOfPoints}</b>
       </p>
       <button
         className="btn btn-ui"

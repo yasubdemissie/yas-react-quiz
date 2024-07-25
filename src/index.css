@@ -143,7 +143,7 @@ progress {
 }
 
 .btn-ui {
-  float: right;
+  float: inline-end;
 }
 
 .options {
@@ -164,9 +164,9 @@ progress {
   color: var(--color-light);
 }
 .btn-option.wrong {
-  background-color: var(--color-accent);
-  border: 2px solid var(--color-accent);
-  color: var(--color-darkest);
+  /* background-color: var(--color-accent);
+  border: 2px solid var(--color-accent); */
+  color: var(--color-light);
 }
 
 .answer {
@@ -247,6 +247,10 @@ progress {
 
 /* ********** */
 /* First counter example */
+footer {
+  display: flex;
+  justify-content: space-evenly;
+}
 .counter {
   display: flex;
   flex-direction: column;
@@ -260,4 +264,10 @@ progress {
 .counter * {
   font-size: inherit;
   padding: 0.8rem;
+}
+
+
+/* Added by yasub after the project */
+.invisible {
+  visibility: hidden;
 }

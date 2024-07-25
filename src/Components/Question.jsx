@@ -1,7 +1,10 @@
-function Question({ data, index, children }) {
+import useProvider from "./hook/useProvider";
+
+function Question({ children }) {
+  const { question } = useProvider();
   return (
     <>
-      <h3 className="question"> {data[index].question}</h3>
+      <h3 className="question"> {question.question}</h3>
       <div className="options">
         {children}
       </div>

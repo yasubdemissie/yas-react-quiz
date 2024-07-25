@@ -26,7 +26,6 @@ function reducer(state, action) {
         points: 0,
         index: 0,
         answer: null,
-        time: 180,
       };
     case "answer":
       const question = state.questions.at(state.index);
@@ -48,12 +47,6 @@ function reducer(state, action) {
       };
     case "finish":
       return { ...state, status: "finished" };
-    case "timer":
-      return {
-        ...state,
-        time: state.time - 1,
-        status: state.time === 0 ? "finished" : "active",
-      };
     default:
       throw new Error(`Invalid action ${action.type}`);
   }
@@ -87,11 +80,12 @@ function Context({ children }) {
     <ContextProvider.Provider
       value={{
         questions,
+        question : questions[index],
         status,
         index,
         answer,
         points,
-        time,
+        // time,
         numberOfPoints,
         numberOfQuestions,
         dispatch,

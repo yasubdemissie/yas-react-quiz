@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
+import useProvider from "./hook/useProvider";
 
-const SEC_PER_QUESTION = 4;
+const SEC_PER_QUESTION = 1;
 
-function Timer({ numberOfQuestions, dispatch }) {
-
+function Timer() {
+  const { numberOfQuestions,  dispatch } = useProvider();
   const [time, setTime] = useState(() => numberOfQuestions * SEC_PER_QUESTION);
   // Timer Effect
   useEffect(() => {
-    // if (time === 0) return;
+    if (time === 0) {
+      dispatch({ type: "finish" });
+      return;
+    };
     const timerId = setInterval(() => {
       setTime(time => time - 1);
       if (time === 0) dispatch({ type: "finish" });

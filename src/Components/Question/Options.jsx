@@ -1,5 +1,8 @@
+import useProvider from "../hook/useProvider";
+
 // import { useState } from "react";
-function Options({ userAnswer, dispatch, question, index }) {
+function Options() {
+  const { answer, dispatch, question } = useProvider();
   //   console.log(question, userAnswer.has(index), index);
   // const isAnswered = userAnswer.has(index) ? true : false;
   return (
@@ -7,8 +10,8 @@ function Options({ userAnswer, dispatch, question, index }) {
       {question.options.map((option, i) => {
         return (
           <button
-            className={`btn btn-option ${userAnswer === i ? "answer" : ""} ${
-              userAnswer !== null
+            className={`btn btn-option ${answer === i ? "answer" : ""} ${
+              answer !== null
                 ? question.correctOption === i
                   ? "correct"
                   : "wrong"
@@ -16,7 +19,7 @@ function Options({ userAnswer, dispatch, question, index }) {
             }
             }`}
             key={option}
-            disabled={userAnswer !== null}
+            disabled={answer !== null}
             onClick={() => {
               if (true) {
                 dispatch({ type: "answer", payload: i });
