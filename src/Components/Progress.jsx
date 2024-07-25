@@ -1,3 +1,4 @@
+import propTypes from 'prop-types';
 function Progress({ index, point, numberOfQuestions, numberOfPoints, answer }) {
     return (
         <header className="progress">
@@ -6,6 +7,10 @@ function Progress({ index, point, numberOfQuestions, numberOfPoints, answer }) {
             <p>points: {point} / {numberOfPoints}</p>
         </header>
     )
+}
+
+Progress.propTypes = {
+    answer : propTypes.string,
 }
 
 export default Progress
